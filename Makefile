@@ -41,3 +41,10 @@ endif
 	helm package jxboot-resources
 	curl --fail -u $(CHARTMUSEUM_CREDS_USR):$(CHARTMUSEUM_CREDS_PSW) --data-binary "@$(NAME)-$(VERSION).tgz" $(CHART_REPO)/api/charts
 	rm -rf ${NAME}*.tgz
+
+
+test:
+	cd tests && go test -v
+
+test-regen:
+	cd tests && export HELM_UNIT_REGENERATE_EXPECTED=true && go test -v

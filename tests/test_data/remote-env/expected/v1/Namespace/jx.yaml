@@ -1,0 +1,15 @@
+# Source: jxboot-resources/templates/000-namespace.yaml
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    jenkins-x.io/created-by: Jenkins X
+  labels:
+    env: dev
+    team: jx
+    certmanager.k8s.io/disable-validation: "true"
+  name: jx
+spec:
+  finalizers:
+  - kubernetes

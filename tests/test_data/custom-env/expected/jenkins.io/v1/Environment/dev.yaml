@@ -1,0 +1,52 @@
+# Source: jxboot-resources/templates/dev-env.yaml
+apiVersion: jenkins.io/v1
+kind: Environment
+metadata:
+  labels:
+    env: dev
+    team: jx
+  name: dev
+spec:
+  kind: Development
+  label: Development
+  namespace: jx
+  previewGitInfo:
+    user: {}
+  promotionStrategy: Never
+  source:
+    ref: master
+    url: "https://github.com/myorg/environment-mycluster-dev.git"
+  teamSettings:
+    appsRepository: http://chartmuseum.jenkins-x.io
+    buildPackName: kubernetes-workloads
+    buildPackRef: master
+    buildPackUrl: https://github.com/jenkins-x-buildpacks/jenkins-x-kubernetes.git
+    defaultScheduler:
+      apiVersion: jenkins.io/v1
+      kind: Scheduler
+      name: default-scheduler
+    dockerRegistryOrg: ""
+    envOrganisation: "myorg"
+    gitServer: https://github.com
+    gitPublic: false
+    helmTemplate: true
+    kubeProvider: ""
+    pipelineUsername: ""
+    pipelineUserEmail: ""
+    prowConfig: Scheduler
+    importMode: YAML
+    promotionEngine: Prow
+    prowEngine: Tekton
+    quickstartLocations:
+      - excludes:
+        - WIP-*
+        gitKind: github
+        gitUrl: https://github.com
+        includes:
+        - '*'
+        owner: jenkins-x-quickstarts
+      
+    versionStreamUrl: "https://github.com/jenkins-x/jenkins-x-versions.git"
+    versionStreamRef: ""
+    useGitOps: true
+  webHookEngine: ""

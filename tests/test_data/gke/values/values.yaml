@@ -1,0 +1,46 @@
+cluster:
+  domain: "mydomain.com"
+  namespaceSubDomain: -jx.
+  provider: "gke"
+gitops:
+  dev:
+    dockerRegistryOrg: ""
+    envOrganisation: "myorg"
+    owner: "myorg"
+    repo: "environment-mycluster-dev"
+    server: ""
+    scheduler: env-scheduler
+    buildPackName: kubernetes-workloads
+    buildPackRef: master
+    buildPackUrl: https://github.com/jenkins-x-buildpacks/jenkins-x-kubernetes.git
+    quickstartLocations:
+    - excludes:
+      - WIP-*
+      gitKind: github
+      gitUrl: https://github.com
+      includes:
+      - '*'
+      owner: jenkins-x-quickstarts
+  gitKind: github
+  gitName: ""
+  gitUrlPathPrefix: ""
+  gitPublic: false
+  owner: "myorg"
+  production:
+    owner: ""
+    repo: "environment-mycluster-production"
+    server: ""
+    scheduler: env-scheduler
+    remote: false
+    namespace: jx-production
+  server: https://github.com
+  staging:
+    owner: ""
+    repo: "environment-mycluster-staging"
+    server: ""
+    scheduler: env-scheduler
+    remote: false
+    namespace: jx-staging
+  versionStreamRef: ""
+  versionStreamUrl: https://github.com/jenkins-x/jenkins-x-versions.git
+  webhook: ""
