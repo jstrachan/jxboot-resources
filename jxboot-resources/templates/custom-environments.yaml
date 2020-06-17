@@ -1,0 +1,41 @@
+{{- if hasKey .Values.gitops "environments" -}}
+{{- $gitops := .Values.gitops -}}
+{{- range $key, $env := .Values.gitops.environments }}
+{{- $gitUrlPathPrefix := "" -}}
+{{- if hasKey $gitops "gitKind" -}}
+  {{- if eq "bitbucketserver" $gitops.gitKind -}}
+    {{- $gitUrlPathPrefix := "/scm" -}}
+  {{- end }}
+{{- end }}
+---
+apiVersion: jenkins.io/v1
+kind: Environment
+metadata:
+  labels:
+    env: "{{ $env.key }}"
+    team: "{{ $env.namespace | default "jx" }}"
+  name: "{{ $env.key }}"
+spec:
+  kind: Permanent
+  label: {{ title $env.key }}
+{{- if $env.namespace }}
+  namespace: "{{ $env.namespace }}"
+{{- else }}
+  namespace: "jx-{{ $env.key }}"
+{{- end }}
+  order: {{ $env.order | default 500 }}
+  previewGitInfo:
+    user: {}
+  promotionStrategy: "{{ $env.promotionStrategy | default "Manual" }}"
+{{- if $env.remoteCluster }}
+  remoteCluster: true
+{{- else }}
+  remoteCluster: false
+{{- end }}
+{{- if hasKey $env "repo" }}
+  source:
+    ref: master
+    url: "{{ $gitops.gitServer | default "https://github.com" }}{{ $gitUrlPathPrefix }}/{{ $env.owner | default $gitops.dev.envOrganisation }}/{{ $env.repo }}.git"
+{{- end }}
+{{- end -}}
+{{- end -}}

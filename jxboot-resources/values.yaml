@@ -57,6 +57,7 @@ gitops:
   gitName: ""
   gitUrlPathPrefix: ""
   gitPublic: false
+  gitServer: https://github.com
   owner: ""
   production:
     owner: ""
@@ -76,6 +77,7 @@ gitops:
   versionStreamRef: ""
   versionStreamUrl: https://github.com/jenkins-x/jenkins-x-versions.git
   webhook: ""
+  environments: []
 hook:
   ingress:
     class: nginx

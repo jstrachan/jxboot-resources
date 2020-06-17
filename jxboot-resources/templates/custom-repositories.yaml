@@ -1,0 +1,30 @@
+{{- if hasKey .Values.gitops "environments" -}}
+{{- $gitops := .Values.gitops -}}
+{{- range $key, $env := .Values.gitops.environments }}
+---
+apiVersion: jenkins.io/v1
+kind: SourceRepository
+metadata:
+  name: "{{ $env.key }}"
+  labels:
+    jenkins.io/gitSync: "false"
+spec:
+  provider: {{ $gitops.gitServer | default "https://github.com" | quote }}
+  providerName: '{{ $gitops.gitKind | default "github" }}'
+  httpCloneURL: "{{ $gitops.gitServer | default "https://github.com" }}/{{ $env.owner | default $gitops.dev.envOrganisation }}/{{ $env.repo }}.git"
+  org: "{{ $env.owner | default $gitops.dev.envOrganisation }}"
+  repo: "{{ $env.repo }}"
+  description: "the git repository for the {{ title $env.key }} environment"
+  scheduler:
+    kind: Scheduler
+{{- if $env.remoteCluster }}
+  {{- if eq "dev" $env.key }}
+    name: "release-only"
+  {{- else }}
+    name: "pr-only"
+  {{- end -}}
+{{- else }}
+    name: "environment"
+{{- end -}}
+{{- end -}}
+{{- end -}}
