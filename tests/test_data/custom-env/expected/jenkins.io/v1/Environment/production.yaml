@@ -1,18 +1,18 @@
-# Source: jxboot-resources/templates/production-env.yaml
-
 apiVersion: jenkins.io/v1
 kind: Environment
 metadata:
-  creationTimestamp: null
-  name: production
+  labels:
+    env: "production"
+    team: "jx-production"
+  name: "production"
 spec:
   kind: Permanent
   label: Production
-  namespace: jx-production
+  namespace: "jx-production"
   order: 200
   previewGitInfo:
     user: {}
-  promotionStrategy: Manual
+  promotionStrategy: "Manual"
   remoteCluster: false
   source:
     ref: master

@@ -17,26 +17,38 @@ gitops:
       includes:
       - '*'
       owner: jenkins-x-quickstarts
-  gitKind: github
-  gitName: ""
-  gitUrlPathPrefix: ""
-  gitPublic: false
-  owner: "myorg"
-  production:
+  environments:
+  - key: custom
     owner: ""
-    repo: "environment-mycluster-production"
+    order: 50
+    repo: "environment-mycluster-custom"
     server: ""
     scheduler: env-scheduler
     remote: false
-    namespace: jx-production
-  server: https://github.com
-  staging:
+    namespace: jx-custom
+  - key: staging
+    order: 100
+    promotionStrategy: Auto
     owner: ""
     repo: "environment-mycluster-staging"
     server: ""
     scheduler: env-scheduler
     remote: false
     namespace: jx-staging
+  - key: production
+    order: 200
+    owner: ""
+    repo: "environment-mycluster-production"
+    server: ""
+    scheduler: env-scheduler
+    remote: false
+    namespace: jx-production
+  gitKind: github
+  gitName: ""
+  gitUrlPathPrefix: ""
+  gitPublic: false
+  owner: "myorg"
+  server: https://github.com
   versionStreamRef: ""
   versionStreamUrl: https://github.com/jenkins-x/jenkins-x-versions.git
   webhook: ""

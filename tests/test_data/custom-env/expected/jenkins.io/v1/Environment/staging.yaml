@@ -1,17 +1,18 @@
-# Source: jxboot-resources/templates/staging-env.yaml
-
 apiVersion: jenkins.io/v1
 kind: Environment
 metadata:
-  name: staging
+  labels:
+    env: "staging"
+    team: "jx-staging"
+  name: "staging"
 spec:
   kind: Permanent
   label: Staging
-  namespace: jx-staging
+  namespace: "jx-staging"
   order: 100
   previewGitInfo:
     user: {}
-  promotionStrategy: Auto
+  promotionStrategy: "Auto"
   remoteCluster: false
   source:
     ref: master

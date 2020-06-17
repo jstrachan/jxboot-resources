@@ -1,0 +1,19 @@
+apiVersion: jenkins.io/v1
+kind: Environment
+metadata:
+  labels:
+    env: "custom"
+    team: "jx-custom"
+  name: "custom"
+spec:
+  kind: Permanent
+  label: Custom
+  namespace: "jx-custom"
+  order: 50
+  previewGitInfo:
+    user: {}
+  promotionStrategy: "Manual"
+  remoteCluster: false
+  source:
+    ref: master
+    url: "https://github.com/myorg/environment-mycluster-custom.git"
